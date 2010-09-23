@@ -15,23 +15,18 @@ The autocomplete module adds jQuery UI's autocomplete widget to <code>belongs_to
 
 For best results use it with "Searchlogic":http://github.com/binarylogic/searchlogic and "Will Paginate":http://github.com/mislav/will_paginate as shown below
 
-<pre><code>
-class Product
+<pre><code>class Product
   belongs_to :brand
   has_and_belongs_to_many :categories
-end
-</code></pre>
+end</code></pre>
 
-<pre><code>
-class Category
+<pre><code>class Category
   has_and_belongs_to_many :products
-end
-</code></pre>
+end</code></pre>
 
 The search results should be mapped into value/label pairs for a JSON query
 
-<pre><code>
-class CategoriesController < ApplicationController
+<pre><code>class CategoriesController < ApplicationController
   def index
     @search = Category.search(params[:search])
     @categories = @search.paginate(:page => params[:page])
@@ -40,17 +35,13 @@ class CategoriesController < ApplicationController
       format.json { @categories.map { |category| {:label => category.title, :value => category.id} }.to_json }
     end
   end
-end
-</pre></code>
+end</code></pre>
 
-<pre><code>
-class Brand
+<pre><code>class Brand
   has_many :products
-end
-</code></pre>
+end</code></pre>
 
-<pre><code>
-class BrandsController < ApplicationController
+<pre><code>class BrandsController < ApplicationController
   def index
     @search = Brand.search(params[:search])
     @brands = @search.paginate(:page => params[:page])
@@ -59,32 +50,27 @@ class BrandsController < ApplicationController
       format.json { @brands.map { |brand| {:label => brand.name, :value => brand.id} }.to_json }
     end
   end
-end
-</pre></code>
+end</code></pre>
 
 The input method takes two extra parameters:
 
 * <code>:url</code> - the URL of the data source (JSON formatted)
 * <code>:param_name</code> - the parameter that will be passed to the URL (as part of the search param) 
 
-<pre><code>
-<% semantic_form_for @product do |f| %>
+<pre><code><% semantic_form_for @product do |f| %>
   <% f.inputs do %>
     <%= f.input :categories, :as => :autocomplete, :url => categories_path(:format => :json), :param_name => 'title_begins_with' %>
     <%= f.input :brand, :as => :autocomplete, :url => brands_path(:format => :json), :param_name => 'name_begins_with' %>
   <% end %>
-<% end %>
-</code></pre>
+<% end %></code></pre>
 
 h2. Datepicker
 
-<pre><code>
-<% semantic_form_for @todo do |f| %>
+<pre><code><% semantic_form_for @todo do |f| %>
   <% f.inputs do %>
     <%= f.input :due_date, :as => :datepicker
   <% end %>
-<% end %>
-</code></pre>
+<% end %></code></pre>
 
 h2. Requirements
 
