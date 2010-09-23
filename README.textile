@@ -64,7 +64,7 @@ The input method takes two extra parameters:
   <% end %>
 <% end %></code></pre>
 
-h2. Datepicker
+h3. Datepicker
 
 <pre><code><% semantic_form_for @todo do |f| %>
   <% f.inputs do %>
