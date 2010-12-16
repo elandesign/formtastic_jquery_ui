@@ -47,7 +47,7 @@ end</code></pre>
     @brands = @search.paginate(:page => params[:page])
     respond_to do |format|
       format.html {}
-      format.json { @brands.map { |brand| {:label => brand.name, :value => brand.id} }.to_json }
+      format.json { render :json => @brands.map { |brand| {:label => brand.name, :value => brand.id} }.to_json }
     end
   end
 end</code></pre>

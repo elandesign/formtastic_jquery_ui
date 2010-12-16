@@ -44,8 +44,9 @@ module FormtasticJQueryUI
   });
 EOT
         end
-      elsif reflection && [:belongs_to].include?(reflection.macro)
-        html << self.hidden_field(reflection.primary_key_name)
+      elsif (reflection && [:belongs_to].include?(reflection.macro)) || reflection.nil?
+        hidden_field_name = reflection.try(:primary_key_name) || "#{method}_id"
+        html << self.hidden_field(hidden_field_name)
         html << template.text_field_tag(input_name, object.send(method).try(detect_label_method([object.send(method)])))
         html << template.content_tag(:script, :type => 'text/javascript') do
           <<-EOT
@@ -63,7 +64,7 @@ EOT
       });
     },
     select: function(event, selection) {
-      $('##{sanitized_object_name}_#{reflection.primary_key_name}').val(selection.item.value);
+      $('##{sanitized_object_name}_#{hidden_field_name}').val(selection.item.value);
       $('##{input_name}').val(selection.item.label);
       return false;
     },
@@ -71,7 +72,7 @@ EOT
   }); 
   $('##{input_name}').blur(function(event){
     if($(this).val() == '')
-      $('##{sanitized_object_name}_#{reflection.primary_key_name}').val('');
+      $('##{sanitized_object_name}_#{hidden_field_name}').val('');
   })   
 EOT
         end
