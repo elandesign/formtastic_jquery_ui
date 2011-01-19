@@ -78,7 +78,7 @@ EOT
         end
       end
     
-      template.content_tag(:label, method.to_s.humanize, :for => input_name) << html
+      template.content_tag(:label, method.to_s.humanize, :for => input_name) << Formtastic::Util.html_safe(html)
     end
     
   end
