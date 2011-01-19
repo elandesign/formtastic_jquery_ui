@@ -78,7 +78,7 @@ EOT
         end
       end
     
-      template.content_tag(:label, method.to_s.humanize, :for => input_name) << Formtastic::Util.html_safe(html)
+      template.content_tag(:label, localized_string(method, options[:label].is_a?(::String) ? options[:label] : nil, :label) || humanized_attribute_name(method), :for => input_name) << Formtastic::Util.html_safe(html)
     end
     
   end
