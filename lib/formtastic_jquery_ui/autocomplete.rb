@@ -7,7 +7,11 @@ module FormtasticJQueryUI
       html_options[:multiple] = html_options[:multiple] || options.delete(:multiple)
       html_options.delete(:multiple) if html_options[:multiple].nil?
       
-      html = "" 
+      autocomplete_options = options.delete(:autocomplete) || {}
+      autocomplete_option_minLength = autocomplete_options[:minLength] || 2
+      autocomplete_option_minLength_js =  "minLength: #{autocomplete_option_minLength},"
+
+      html = ""
       reflection = self.reflection_for(method)
       input_name = "autocomplete_for_#{sanitized_object_name}_#{method}"
       param_name = options[:param_name] || 'term'
@@ -34,6 +38,7 @@ module FormtasticJQueryUI
         }
       });
     },
+    #{autocomplete_option_minLength_js}
     select: function(event, selection) {
       if($('##{selections_name} input[value=' + selection.item.value + ']').length == 0)
         $('##{selections_name}').append('<li><input type="hidden" name="#{selection_name}" value="' + selection.item.value + '" />' + selection.item.label + ' <a href="#" onclick="$(this).closest(\\'li\\').remove();">Remove</a></li>');
@@ -63,6 +68,7 @@ EOT
         }
       });
     },
+    #{autocomplete_option_minLength_js}
     select: function(event, selection) {
       $('##{sanitized_object_name}_#{hidden_field_name}').val(selection.item.value);
       $('##{input_name}').val(selection.item.label);
