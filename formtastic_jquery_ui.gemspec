@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "formtastic_jquery_ui"
-  s.version     = "0.0.3"
+  s.version     = "0.0.4"
   s.author      = "Paul Smith"
   s.email       = "paul@elandesign.co.uk"
   s.homepage    = "http://github.com/elandesign/formtastic_jquery_ui"
